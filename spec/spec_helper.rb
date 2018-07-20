@@ -23,20 +23,23 @@ Dir[File.join(spec_dir, 'fixtures/**/*.yml')].each {|f|
 $data = OpenStruct.new($data)
 Dir[File.join(spec_dir, 'support/**/*.rb')].each {|f| require f}
 
+
+
 RSpec.configure do |config|
   # Capybara.register_driver :true_automation_driver do |app|
   #   TrueAutomation::Driver::Capybara.new(app)
-  Capybara.register_driver :true_automation_gecodriver do |app|
+
+  Capybara.register_driver :true_automation_driver do |app|
     TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4444')
   end
 
-  Capybara.register_driver :true_automation_chromedriver do |app|
-    TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:9515')
-  end
-
-  Capybara.register_driver :true_automation_appiumdriver do |app|
-    TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4723')
-  end
+  # Capybara.register_driver :true_automation_chromedriver do |app|
+  #   TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:9515')
+  # end
+  #
+  # Capybara.register_driver :true_automation_appiumdriver do |app|
+  #   TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4723')
+  # end
 
   Capybara.configure do |capybara|
     capybara.run_server = false

@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'TrueAutomation.IO capybara example' do
   before :each do
     puts 'before scenario'
+    puts ARGV[0]
   end
 
   scenario 'Test example' do
