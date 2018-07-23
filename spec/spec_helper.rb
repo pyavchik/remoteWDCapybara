@@ -24,37 +24,55 @@ $data = OpenStruct.new($data)
 Dir[File.join(spec_dir, 'support/**/*.rb')].each {|f| require f}
 
 
-
 RSpec.configure do |config|
-  # Capybara.register_driver :true_automation_driver do |app|
-  #   TrueAutomation::Driver::Capybara.new(app)
+  config.include Capybara::DSL
+  config.include TrueAutomation::DSL
 
-  Capybara.register_driver :true_automation_driver do |app|
-    TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4444')
+  case ENV['webdriver']
+  when "chrome"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:9515')
+    end
+  when "firefox"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4444')
+    end
+  when "safari"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:2345')
+    end
+  when "android"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
+    end
+  when "ios"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
+    end
+  when "edge"
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
+    end
+  else
+    Capybara.register_driver :true_automation_driver do |app|
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4444')
+    end
   end
 
-  # Capybara.register_driver :true_automation_chromedriver do |app|
-  #   TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:9515')
-  # end
-  #
-  # Capybara.register_driver :true_automation_appiumdriver do |app|
-  #   TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:4723')
-  # end
 
   Capybara.configure do |capybara|
     capybara.run_server = false
     capybara.default_max_wait_time = 5
-
     capybara.default_driver = :true_automation_driver
-
   end
 
-  config.include Capybara::DSL
-  config.include TrueAutomation::DSL
 
   Dir[File.join(spec_dir, 'support/**/*.rb')].each {|f|
     base = File.basename(f, '.rb')
     klass = camelize(base)
     config.include Module.const_get(klass)
   }
+
 end
+
+
