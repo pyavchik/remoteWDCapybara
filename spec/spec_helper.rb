@@ -65,7 +65,7 @@ RSpec.configure do |config|
     end
   when "edge"
     Capybara.register_driver :true_automation_driver do |app|
-      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:17556')
     end
   else
     Capybara.register_driver :true_automation_driver do |app|
