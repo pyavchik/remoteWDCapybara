@@ -41,13 +41,27 @@ RSpec.configure do |config|
     Capybara.register_driver :true_automation_driver do |app|
       TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:2345')
     end
-  when "android"
-    Capybara.register_driver :true_automation_driver do |app|
-      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
-    end
   when "ios"
     Capybara.register_driver :true_automation_driver do |app|
-      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:0000')
+      caps = Selenium::WebDriver::Remote::Capabilities.new
+      caps['automationName'] = 'XCUITest'
+      caps['platformName'] = 'iOS'
+      caps['deviceName'] = 'iPhone X (11.4)'
+      caps['udid'] = '1DA711FE-C66B-4538-9147-10852CF5F1ED'
+      caps['browserName'] = 'safari'
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote,
+                                           url: 'http://localhost:4723/wd/hub',
+                                           desired_capabilities: caps)
+    end
+  when "android"
+    Capybara.register_driver :true_automation_driver do |app|
+      caps = Selenium::WebDriver::Remote::Capabilities.new
+      caps['platformName'] = 'Android'
+      caps['browserName'] = 'chrome'
+      caps['deviceName'] = 'Android'
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote,
+                                           url: 'http://localhost:4723/wd/hub',
+                                           desired_capabilities: caps)
     end
   when "edge"
     Capybara.register_driver :true_automation_driver do |app|
