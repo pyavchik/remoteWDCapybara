@@ -31,7 +31,7 @@ RSpec.configure do |config|
   case ENV['webdriver']
   when "chrome"
     Capybara.register_driver :true_automation_driver do |app|
-      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:9515')
+      TrueAutomation::Driver::Capybara.new(app, browser: :remote, url: 'http://localhost:3333')
     end
   when "firefox"
     Capybara.register_driver :true_automation_driver do |app|

@@ -15,7 +15,7 @@ trueautomation init
 TO LAUNCH chromedriver
 
 ```bash
-environment/chromedriver
+environment/chromedriver -port=3333
 ```
 TO LAUNCH geckodriver
 
