@@ -47,7 +47,7 @@ TO RUN TEST with MicrosoftWebDriver (Windows 10 needed)
 
 ```bash
 set webdriver=edge
-rspec spec/test_scenario/trueautomation_spec.rb 
+rspec spec\test_scenario\trueautomation_spec.rb 
 ```
 TO RUN TEST with appium IOS (appium should be installed and started)
 
